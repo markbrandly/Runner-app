@@ -27,7 +27,7 @@
   function getSearchFromUrl(){
     var url = window.location.href
     var splitUrl = url.split('/')
-    if (splitUrl.length == 4 && splitUrl[3] !== '') return splitUrl[3]
+    if (splitUrl.length == 4 && splitUrl[3] !== '') return splitUrl[3].replace('%20',' ')
     return 'Mark Brandly'
     console.log(splitUrl)
   }
@@ -37,6 +37,18 @@
   app.controller('ctrl', function($scope,$http){
     // getSearchFromUrl()
     $scope.search = getSearchFromUrl()
+
+    $scope.firstClick = function(){
+      return function(){
+        var clicked
+        if(!clicked){
+          clicked=true
+          $scope.search = ''
+        }
+        console.log(clicked)
+      }()
+    }
+
     $scope.findRunners = function(wait){
       if(typeof wait == 'undefined') wait = 300
       var localSearch = $scope.search;
