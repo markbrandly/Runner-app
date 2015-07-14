@@ -1,0 +1,76 @@
+<!doctype html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,100' rel='stylesheet' type='text/css'>
+    <base href='/'>
+    <body ng-app="runner" ng-controller='ctrl'>
+        <header class='page-header clearfix'>
+            <div class='width-container'>
+                <h1 class='page-title'>Runners</h1>
+                <div class='search-wrapper'>
+                    <input ng-model="search" ng-change="findRunners();changeUrl()"  class='runner-search' type='search' placeholder='search for a runner'>
+                    <span class='magnifying-holder'><svg viewBox="0 0 485.213 485.213" class='magnifying'>
+                        <g>
+                            <path class='magnifying-handle' d="M471.882,407.567L360.567,296.243c-16.586,25.795-38.536,47.734-64.331,64.321l111.324,111.324c17.772,17.768,46.587,17.768,64.321,0C489.654,454.149,489.654,425.334,471.882,407.567z"/>
+                            <path class='magnifying-glass' d="M363.909,181.955C363.909,81.473,282.44,0,181.956,0C81.474,0,0.001,81.473,0.001,181.955s81.473,181.951,181.955,181.951C282.44,363.906,363.909,282.437,363.909,181.955z M181.956,318.416c-75.252,0-136.465-61.208-136.465-136.46c0-75.252,61.213-136.465,136.465-136.465c75.25,0,136.468,61.213,136.468,136.465C318.424,257.208,257.206,318.416,181.956,318.416z"/>
+                            <path class='magnifying-flare' d="M75.817,181.955h30.322c0-41.803,34.014-75.814,75.816-75.814V75.816C123.438,75.816,75.817,123.437,75.817,181.955z"/>
+                        </g>
+                    </svg>
+                </span>
+                <span class='x-holder' ng-click="search='';runnersList=[]">
+                    <svg viewBox="0 0 44.238 44.238" class='x'>
+                        <g>
+                            <path class='x-middle' d="M15.533,29.455c-0.192,0-0.384-0.073-0.53-0.22c-0.293-0.293-0.293-0.769,0-1.062l13.171-13.171
+                            c0.293-0.293,0.768-0.293,1.061,0s0.293,0.768,0,1.061L16.063,29.235C15.917,29.382,15.725,29.455,15.533,29.455z"/>
+                            <path class='x-middle' d="M28.704,29.455c-0.192,0-0.384-0.073-0.53-0.22L15.002,16.064c-0.293-0.293-0.293-0.768,0-1.061s0.768-0.293,1.061,0
+                            l13.171,13.171c0.293,0.293,0.293,0.769,0,1.062C29.088,29.382,28.896,29.455,28.704,29.455z"/>
+                            <path class='x-outer' d="M22.119,44.237C9.922,44.237,0,34.315,0,22.12C0,9.924,9.922,0.001,22.119,0.001S44.238,9.923,44.238,22.12
+                            S34.314,44.237,22.119,44.237z M22.119,1.501C10.75,1.501,1.5,10.751,1.5,22.12s9.25,20.619,20.619,20.619
+                            s20.619-9.25,20.619-20.619S33.488,1.501,22.119,1.501z"/>
+                        </g>
+                    </svg>
+                </span>
+            </div>
+        </div>
+    </header>
+    <section class='page-body'>
+        <div class='width-container'>
+            <h2 class='runner-title'>{{search}}</h2>
+            <div class='runners-list clearfix'>
+                <!-- lol sorry about the double model-->
+                <div class='runners-list-item' ng-if="runnersList.length==0">
+                    Search for a runner if u finna
+                </div>
+                <div class='left-half'>
+                    <div ng-repeat="(index, x) in runnersList" ng-if="index%2==0" class='runners-list-item runners-list-item-left'>
+                    </div>
+                </div>
+                <div class='right-half'>
+                    <div ng-repeat="(index, x) in runnersList" ng-if="index%2==1" class='runners-list-item runners-list-item-right'>
+                        <h3>{{x.textsuggest}} 
+                            <span ng-if="!x.loaded">
+                                <svg viewBox="0 0 100 100" class='loading-svg'><rect x="0" y="0" width="100" height="100" fill="none" class="bk"></rect><g><path fill="none" stroke-width="5" stroke-miterlimit="10" d="M58.4,51.7c-0.9-0.9-1.4-2-1.4-2.3s0.5-0.4,1.4-1.4 C70.8,43.8,79.8,30.5,80,15.5H70H30H20c0.2,15,9.2,28.1,21.6,32.3c0.9,0.9,1.4,1.2,1.4,1.5s-0.5,1.6-1.4,2.5 C29.2,56.1,20.2,69.5,20,85.5h10h40h10C79.8,69.5,70.8,55.9,58.4,51.7z" class="glass"></path><clipPath id="uil-hourglass-clip1"><rect x="15" y="20" width="70" height="25" class="clip"><animate attributeName="height" from="25" to="0" dur="1s" repeatCount="indefinite" vlaues="25;0;0" keyTimes="0;0.5;1"></animate><animate attributeName="y" from="20" to="45" dur="1s" repeatCount="indefinite" vlaues="20;45;45" keyTimes="0;0.5;1"></animate></rect></clipPath><clipPath id="uil-hourglass-clip2"><rect x="15" y="55" width="70" height="25" class="clip"><animate attributeName="height" from="0" to="25" dur="1s" repeatCount="indefinite" vlaues="0;25;25" keyTimes="0;0.5;1"></animate><animate attributeName="y" from="80" to="55" dur="1s" repeatCount="indefinite" vlaues="80;55;55" keyTimes="0;0.5;1"></animate></rect></clipPath><path d="M29,23c3.1,11.4,11.3,19.5,21,19.5S67.9,34.4,71,23H29z" clip-path="url(#uil-hourglass-clip1)" class="sand"></path><path d="M71.6,78c-3-11.6-11.5-20-21.5-20s-18.5,8.4-21.5,20H71.6z" clip-path="url(#uil-hourglass-clip2)" class="sand"></path><animateTransform attributeName="transform" type="rotate" from="0 50 50" to="180 50 50" repeatCount="indefinite" dur="1s" values="0 50 50;0 50 50;180 50 50" keyTimes="0;0.7;1"></animateTransform></g></svg>
+                            </span>
+                        </h3>
+                        <div>{{x.subtext.replace('||', ' - ')}}</div>
+                        <div>{{x.gender=='M'?'Male':(x.gender=='F'?'Female':'GENDER QUESTIONABLE')}}</div>
+                        <div class='hideable' ng-class='{hidden:!x.loaded}'>
+                            <table class='time-table' style=''>
+                                <tr  ng-repeat="event in x.events">
+                                    <td>{{event.name}} <td><span ng-repeat="time in event.times">{{time}}<br></span>
+                                    </tr>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <footer class='page-footer'>
+                <div class='width-container'>
+                    <a href='//twitter.com/markbrandly'>@markbrandly</a>
+                </div>
+            </footer>
+            <script>document.getElementsByClassName('runners-list-item-left')[0].innerHTML=document.getElementsByClassName('runners-list-item-right')[0].innerHTML</script>
+            <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+            <script src='js/main.js'>
