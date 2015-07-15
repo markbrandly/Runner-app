@@ -1,6 +1,8 @@
 var cheerio = require('cheerio');
-var curl = require('node-curl');
+var Curl = require('node-curl');
 exports.runnerdata = function(id,fn){
+  var curl = Curl.create()
+
   curl('http://www.athletic.net/TrackAndField/Athlete.aspx?AID='+id, function(err) {
       $ = cheerio.load(this.body);
         var $histevent = $('.histEvent')
