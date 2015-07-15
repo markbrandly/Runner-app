@@ -38,16 +38,10 @@
     // getSearchFromUrl()
     $scope.search = getSearchFromUrl()
 
-    $scope.firstClick = function(){
-      return function(){
-        var clicked
-        if(!clicked){
-          clicked=true
-          $scope.search = ''
-        }
-        console.log(clicked)
-      }()
-    }
+    $scope.firstClick = (function(){
+      var clicked = false
+      return function(){if(!clicked)$scope.search='';clicked=true}
+    })()
 
     $scope.findRunners = function(wait){
       if(typeof wait == 'undefined') wait = 300
@@ -58,6 +52,7 @@
           $scope.runnersList = []
           $http.get('http://www.athletic.net/api/v1/AutoComplete/search',{params:{q:localSearch}})
             .success(function(data, status, headers, config){
+              // history.pushState({a:true},'','/'+$scope.search)
               var athletes = data.response.docs.filter(function(obj){return obj.type == 'Athlete'});
               $scope.runnersList = athletes;
               loadAthleteData($scope,$http,localSearch)
